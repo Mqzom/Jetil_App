@@ -1,0 +1,196 @@
+<!-- base.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jetil{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" >
+    <link rel="stylesheet" href="{% static './css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- navbar -->
+    <!-- Here I'm realised main navbar of this project which have logo and menu -->
+    <header>
+            <a href="{% url 'index' %}" class="logo"><img src="{% static 'img/jetil-05-removebg-preview.png' %}" alt="" width="30px" height="30px">JETIL</a>
+                <ul class="navbar">
+                    <li><a href="#course">Курстар</a></li>
+                    <li><a href="#onlinetest">Онлайн Сынақ</a></li>
+                    <li><a href="#teacher">Мұғалімдер</a></li>
+                    <li><a href="{% url 'about' %}">Біз туралы</a></li>
+                    <li><a href="#customer">Пікірлер</a></li>
+                </ul>
+    </header>
+    <!-- end navbar -->
+    <!--home-->
+    <!-- Here I added request form for sending telephone number and name of future student-->
+    <section class="home swiper" id="course">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide container">
+                <div class="home-text">
+                    <span>Шет тілдер мектебі</span>
+                    <h1>Ағылшын, Түрік, Араб тілдерін <br>JETIL-мен оқыңыз</h1>
+                    <h2>ЯЗЫКОВЫЕ КУРСЫ | ТІЛ КУРСТАРЫ | IELTS</h2>
+<!--                    <div id="popup" class="popup">-->
+<!--                        <div class="popup-content">-->
+<!--                            <span class="close" onclick="closePopup()">&times;</span>-->
+<!--                            <form action="{% url 'submit_request' %}" method="POST">-->
+<!--                                {% csrf_token %}-->
+<!--                                <label for="name">Name:</label>-->
+<!--                                <input type="text" id="name" name="name" required><br>-->
+<!--                                <label for="phone_number">Phone Number:</label>-->
+<!--                                <input type="tel" id="phone_number" name="phone_number" required><br>-->
+<!--                                <button type="submit">Submit</button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <button onclick="openPopup()" class="btn_b">Сабаққа жазылу</button>
+                    <!-- Hidden place for new window -->
+                </div>
+                <img src="./img/Снимок_экрана_2024-01-29_в_11.19.19-removebg-preview.png" alt="">
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+    <!-- menu -->
+    <!-- Here I did some free courses -->
+    <section class="menu" id="onlinetest">
+        <div class="heading">
+            <h1>Онлайн тест тапсыру <br><span>Деңгей анықтап тегін видео сабақтар ал</span></h1>
+             <a href="#" class="btn">Онлайн тест</a>
+        </div>
+        <!--menu content-->
+        <div class="menu-container">
+            <!--box 1 2 3 4 5 -->
+            {% for lesson in lessons %}
+                <div class="box box{{forloop.counter}}">
+                    <img src="{{ lesson.image.url }}" alt="">
+                    <h2>{{lesson.title}}</h2>
+                    <span>{{lesson.quantity}} Сабақ</span>
+                    <i class="btn_c"><a href="#course">Қатысу</a></i>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- end menu -->
+
+    <!-- teachers -->
+    <!-- end teachers -->
+
+    <!-- new in -->
+    <section class="newin" id="newin">
+        <div class="heading">
+            <h1>Курстар мен тренигтер <br><span>Дәл қазіргі жеңілдіктер</span></h1>
+             <a href="#" class="btn">Сатып алу</a>
+        </div>
+
+        <!--new in content-->
+        <div class="newin-container">
+            <!--Box 1 2 3 -->
+            {% for course in courses %}
+            <div class="box box{{forloop.counter}}">
+                <img src="{{ course.image.url }}" alt="">
+                <span>{{course.title}}</span>
+                <h2>{{course.description}}</h2>
+                <h3 class="price"><a href="#course">{{course.price}} T</a></h3>
+                <span class="discount">{{course.discount}}%  </span>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- end new in -->
+
+    <!-- about -->
+    <section class="about" id="about">
+        <div class="img-about"><a href="{% url 'index' %}" class="logo1">JETIL</a></div>
+        <div class="about-text">
+            <span>Біз туралы</span>
+            <p>Жүйелі мектеп ағылшын, түрік және басқа тілдерді оқыту үшін жасалған. Осы мектеп арқылы студенттер оқуға қабылдану, тілдерді жеңілдету және коммуникативті қабілеттерін дамыту мүмкіндігін алуға болады. Мектеп үшін мақсат - тілді мамандандыру, жүргізушілік пен өзін-өзі таныту. Артықшылығы - оқушыларға сапалы оқу беру.</p>
+            <a href="#" class="btn">Көбірек білу</a>
+        </div>
+    </section>
+    <!--Customer-->
+    <section class="customer" id="customer">
+        <h2>Why Customer's Love Us?</h2>
+        <!--customer content-->
+        <div class="customer-container">
+            <!--review 1-->
+            <div class="box">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga sapiente rerum laudantium aliquam, assumenda doloremque quisquam?</p>
+                <div class="review-profile">
+                    <img src="{% static './img/c1.png' %}" alt="">
+                    <h3>Sarah Bolat</h3>
+                </div>
+            </div>
+             <!--review 2-->
+             <div class="box">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga sapiente rerum laudantium aliquam, assumenda doloremque quisquam?</p>
+                <div class="review-profile">
+                    <img src="{% static './img/c2.png' %}" alt="">
+                    <h3>Bob Delksd</h3>
+                </div>
+            </div>
+             <!--review 3-->
+             <div class="box">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga sapiente rerum laudantium aliquam, assumenda doloremque quisquam?</p>
+                <div class="review-profile">
+                    <img src="{% static './img/c3.png' %}" alt="">
+                    <h3>Frank Kdjfef</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about -->
+
+    <!--footer-->
+    <section class="footer" id="footer">
+        <div class="footer-box">
+            <a href="#" class="logo">JETIL</a>
+            <p>Алматы қ. БЦ Алатау, <br>Абай көшесі, 151</p>
+            <div class="social">
+                <a href="#"><i class='bx bxl-instagram'></i></a>
+                <a href="#"><i class='bx bxl-facebook'></i></a>
+                <a href="#"><i class='bx bxl-youtube'></i></a>
+                <a href="#"><i class='bx bxl-telegram'></i></a>
+            </div>
+        </div>
+        <div class="footer-box">
+            <h2>Мы и наши проекты</h2>
+            <a href="#">Команда</a>
+            <a href="#">Подкаст</a>
+            <a href="#">Наш блог</a>
+            <a href="#">Вакансии</a>
+        </div>
+        <div class="footer-box">
+            <h2>Керекті бөлім</h2>
+            <a href="#">Безопасность платежей</a>
+
+        </div>
+        <div class="footer-box">
+            <h2>Жаңалықтар</h2>
+            <p>Get 10% Discount with <br>Email Newsletter</p>
+            <form action="">
+                <i class='bx bxs-envelope' ></i>
+                <input type="email" name="" id="" placeholder="Enter Your Email">
+                <i class='bx bx-arrow-back bx-rotate-180' ></i>
+            </form>
+            </div>
+    </section>
+
+    <!-- end footer -->
+
+    <!-- Swiper JS -->
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js' %}"></script>
+
+    <!--link to js-->
+    <script src="{% static './js/script.js' %}"></script>
+
+</body>
+</html>
